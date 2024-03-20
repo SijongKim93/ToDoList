@@ -12,6 +12,9 @@ class TableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var cellLabel: UILabel!
+    @IBOutlet weak var toggleSwitch: UISwitch!
+    
+    var onSwitchToggle: ((Bool) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,4 +27,8 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func switchToggled(_ sender: UISwitch) {
+        onSwitchToggle?(sender.isOn)
+    }
+    
 }

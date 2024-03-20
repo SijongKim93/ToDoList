@@ -35,6 +35,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDc-Qw-SMU">
                                                     <rect key="frame" x="324" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchToggled:" destination="izt-gy-Kqw" eventType="valueChanged" id="r3L-Bf-MgT"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -46,6 +49,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cellLabel" destination="Txd-eW-8Lv" id="5pE-nh-Axl"/>
+                                            <outlet property="toggleSwitch" destination="TDc-Qw-SMU" id="ddO-lU-M4a"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

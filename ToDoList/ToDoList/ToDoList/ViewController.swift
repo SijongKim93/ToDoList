@@ -25,8 +25,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return UITableViewCell()
         }
         
+        // MARK: celllabel  Todo 내 입력된 title 값으로 표시되도록 구현 , 스위치 기본 off , on으로 변경 시 lebel 취소선 구현
+        
         let todo = cellData[indexPath.row]
         cell.cellLabel.text = todo.title
+        
+        let switchOnoff = cell.toggleSwitch
+        switchOnoff?.isOn = false
+        
+        cell.onSwitchToggle = { isOn in
+            if isOn {
+                        let attributeString = NSMutableAttributedString(string: cell.cellLabel.text ?? "")
+                        attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                        cell.cellLabel.attributedText = attributeString
+                    } else {
+                        let attributeString = NSMutableAttributedString(string: cell.cellLabel.text ?? "")
+                        attributeString.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+                        cell.cellLabel.attributedText = attributeString
+                    }
+
+        }
+        
+        
         
         return cell
     }
@@ -34,13 +54,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var addCellButton: UIButton!
-    @IBOutlet weak var cellLabel: UILabel!
     
     
     
     var cellData:[Todo] = [
-        Todo(id: 1, title: "공부하기", isCompleted: false),
-        Todo(id: 2, title: "열공하기", isCompleted: false)
+        Todo(id: 1, title: "text1", isCompleted: false),
+        Todo(id: 2, title: "text2", isCompleted: false),
+        Todo(id: 3, title: "text3", isCompleted: false),
+        Todo(id: 4, title: "text4", isCompleted: false),
         
     ]
     
