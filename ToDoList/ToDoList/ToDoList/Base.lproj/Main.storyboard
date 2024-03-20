@@ -45,8 +45,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cellLabel" destination="Txd-eW-8Lv" id="WDs-KZ-cGY"/>
-                                            <outlet property="toggleSwitch" destination="TDc-Qw-SMU" id="bbV-kq-zkW"/>
+                                            <outlet property="cellLabel" destination="Txd-eW-8Lv" id="5pE-nh-Axl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -60,7 +59,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <action selector="addCellTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jKV-Nq-xCp"/>
+                                    <action selector="addCellButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o79-eV-6v5"/>
                                 </connections>
                             </button>
                         </subviews>

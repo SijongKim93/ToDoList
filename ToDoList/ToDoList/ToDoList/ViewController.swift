@@ -15,20 +15,36 @@ struct Todo {
 
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? TableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let todo = cellData[indexPath.row]
+        cell.cellLabel.text = todo.title
+        
+        return cell
+    }
     
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var addCellButton: UIButton!
+    @IBOutlet weak var cellLabel: UILabel!
     
     
     
-    let cellData:[Todo] = [
-        Todo(id: 1, title: "공부하기", isCompleted: false)
+    var cellData:[Todo] = [
+        Todo(id: 1, title: "공부하기", isCompleted: false),
+        Todo(id: 2, title: "열공하기", isCompleted: false)
         
     ]
     
-
+    
     
     
     
@@ -45,44 +61,35 @@ class ViewController: UIViewController {
     
     
     
+    // MARK: 버튼 누르면 새로운 할일 추가 할 수 있도록 구현
     
     @IBAction func addCellButtonTapped(_ sender: UIButton) {
-        let button = UIButton()
-        button.setTitle("추가", for: .normal)
-        button.addTarget(self, action: #selector(addCellButtonTapped(_:)), for: .touchUpInside)
-        
-        
-                
-    }
-    
-    
-}
-
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? TableViewCell else {
-            return UITableViewCell()
-        }
-        return cell
-    }
-    
-    @objc func addCellButtonTapped(_ sender: UIButton) {
-        
-        let alert = UIAlertController(title: "할 일을 추가해주세요", message: "추가하시겠습니까?", preferredStyle: .alert)
-        
+        print("버튼이 눌렸습니다.")
+        let alert = UIAlertController(title: "할 일을 추가해 주세요.", message: "", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "입력하세요"
         }
         
+        let plusAction = UIAlertAction(title: "추가", style: .default) { [weak self] (_) in
+            guard let textField = alert.textFields?.first, 
+                  let text = textField.text else { return }
+            let newTodo = Todo(id: self?.cellData.count ?? 0, title: text, isCompleted: false)
+            
+            self?.cellData.append(newTodo)
+            self?.myTableView.reloadData()
+        }
         
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(plusAction)
+        alert.addAction(cancelAction)
+
+        
+        present(alert, animated: true, completion: nil)
         
     }
     
     
-    
 }
+
+
