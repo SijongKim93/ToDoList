@@ -82,7 +82,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // MARK: celllabel  Todo 내 입력된 title 값으로 표시되도록 구현 , 스위치 기본 off , on으로 변경 시 lebel 취소선 구현
         
-        var todo = cellData[indexPath.row]
+        let todo = cellData[indexPath.row]
         cell.cellLabel.text = todo.title
         cell.toggleSwitch.isOn = todo.isCompleted
         
@@ -104,4 +104,21 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            cellData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
+    
+    
 }
+
