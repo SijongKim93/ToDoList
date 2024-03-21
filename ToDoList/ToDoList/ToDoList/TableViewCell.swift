@@ -29,6 +29,7 @@ class TableViewCell: UITableViewCell {
 
     @IBAction func switchToggled(_ sender: UISwitch) {
         onSwitchToggle?(sender.isOn)
+        
     }
     
 }
