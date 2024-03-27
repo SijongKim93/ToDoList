@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     
     
     
-    // MARK: 버튼 누르면 새로운 할일 추가 할 수 있도록 구현
+    // MARK: - 버튼 누르면 새로운 할일 추가 할 수 있도록 구현
     
     @IBAction func addCellButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "할 일을 추가해 주세요.", message: "", preferredStyle: .alert)
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
+    
         alert.addAction(plusAction)
         alert.addAction(cancelAction)
 
@@ -76,18 +76,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as? TableViewCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath) as! TableViewCell
         
-        // MARK: celllabel  Todo 내 입력된 title 값으로 표시되도록 구현 , 스위치 기본 off , on으로 변경 시 lebel 취소선 구현
-        
+        // MARK: - celllabel  Todo 내 입력된 title 값으로 표시되도록 구현 , 스위치 기본 off , on으로 변경 시 lebel 취소선 구현
         let todo = cellData[indexPath.row]
         cell.cellLabel.text = todo.title
         cell.toggleSwitch.isOn = todo.isCompleted
-        
         cell.onSwitchToggle = { isOn in
-            
             if isOn {
                 let attributeString = NSMutableAttributedString(string: cell.cellLabel.text ?? "")
                 attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
@@ -99,12 +94,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             self.cellData[indexPath.row].isCompleted = isOn
-            
         }
-        
         return cell
     }
     
+    
+    // MARK: - 셀 지우기
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
@@ -117,8 +112,5 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.endUpdates()
         }
     }
-    
-    
-    
 }
 
